@@ -27,27 +27,33 @@ const lengthOfLongestSubstring = (s) =>{
     if(s.length < 1) {
         return 0;
     }
-
     let duplicates = new Map(); 
     let biggestLength = 1;
     let tmpLength = 0;
+    let pointerA;
+    let pointerB;
 
     s.split('').forEach((letter, index) => {
-
         if(duplicates.has(letter)) {
-            duplicates.clear();
-            tmpLength = 1;
+            pointerA += 1;
+            pointerB = index;
+            //check if its a reoccuring letter 
+            duplicates.delete(letter);
             duplicates.set(letter, index)
         } else {
-            tmpLength += 1;
+            // this else is if theres no reoccuring found
             duplicates.set(letter, index)
+            pointerA = pointerA ? pointerA : 0; 
+            pointerB = duplicates.get(letter);
         }
 
-        if(tmpLength > biggestLength) {
-            biggestLength = tmpLength;
-        }
+        if(tmpLength < pointerB - pointerA + 1) {
+           tmpLength = pointerB - pointerA + 1;
+           biggestLength = tmpLength;
+        };
+
     });
-   return biggestLength; 
+    return biggestLength;
 };
 
 console.log(lengthOfLongestSubstring('abcabcbb'));
@@ -55,5 +61,6 @@ console.log(lengthOfLongestSubstring('bbbbb'));
 console.log(lengthOfLongestSubstring('pwwkew'));
 console.log(lengthOfLongestSubstring(' '));
 console.log(lengthOfLongestSubstring('au'));
-
+console.log(lengthOfLongestSubstring('dvdf'));
+console.log(lengthOfLongestSubstring('abba'));
 

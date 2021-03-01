@@ -68,6 +68,8 @@ const addTwoNumbers = (l1, l2) => {
     }
 
     // If everything is left and a remainder is still initialized its 1 digit higher.
+    // We can probably of optimized the solution by always setting 1 as the remainder because we know
+    // that it can ONLY be two single digits combining together which will always be remainder 1.
     if(remainder) {
         current.next = new ListNode(remainder);
     }
